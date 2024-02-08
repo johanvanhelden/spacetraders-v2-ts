@@ -5,7 +5,7 @@
     "author": "johanvanhelden",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git"
+        "url": "git+https://github.com/johanvanhelden/spacetraders-v2-ts.git"
     },
     "keywords": [
         "axios",
