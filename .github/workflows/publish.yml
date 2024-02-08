@@ -23,6 +23,6 @@ jobs:
         run: make ci-build
 
       - name: Publish package on NPM 📦
-        run: make publish
+        run: make ci-publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
