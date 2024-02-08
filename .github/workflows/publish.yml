@@ -1,0 +1,28 @@
+name: Publish to NPM
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish:
+    # prevents this action from running on forks
+    if: github.repository == 'johanvanhelden/spacetraders-v2-ts'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install dependencies and build 🔧
+        run: make ci-build
+
+      - name: Publish package on NPM 📦
+        run: make publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

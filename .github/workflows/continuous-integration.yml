@@ -1,0 +1,38 @@
+name: Continuous Integration
+
+on: push
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: Setup Node
+          uses: actions/setup-node@v4
+          with:
+            node-version: lts/*
+            registry-url: https://registry.npmjs.org/
+
+        - name: Install dependencies and build 🔧
+          run: make ci-build
+
+    security:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: Setup Node
+          uses: actions/setup-node@v4
+          with:
+            node-version: lts/*
+            registry-url: https://registry.npmjs.org/
+
+        - name: Check NPM Packages
+          run: npm audit --omit=dev
